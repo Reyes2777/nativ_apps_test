@@ -1,2 +1,4 @@
 django==4.1.7
 psycopg2-binary==2.9.5
+django-bootstrap4==22.3
+django-widget-tweaks==1.4.12
