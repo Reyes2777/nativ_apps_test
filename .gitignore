@@ -1,6 +1,7 @@
 env/
 .env*
 .idea/
+init_db.sh
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
