@@ -2,84 +2,85 @@
 {% block content %}
 {% load static %}
 <div class="container-fluid">
-  <h1 class="alert alert-success text-center">Tablero Cursos</h1>
-  <div class="row">
-    <div class="col-sm-2">
-      <form id="create-course-form"  method="POST">
-          {% csrf_token %}
-          {{ form.as_p }}
-
-          <input type="submit" class="btn btn-success" value="Crear" >
-      </form>
-    </div>
-    <div class="col-sm-7">
-      <table id='course-table' class="table table-hover">
-        <thead>
-          <th>Nombre de Curso</th>
-          <th>Horario</th>
-          <th>Fecha de Inicio</th>
-          <th>Fecha de Finalizacion</th>
-          <th>Estudiantes Incritos</th>
-        </thead>
-        <tbody>
-        {% for course in courses%}
-          <tr data-course-id="{{ course.id }}">
-            <td>{{course.name}}</td>
-            <td>{{course.schedule}}</td>
-            <td>{{course.start_date}}</td>
-            <td>{{course.end_date}}</td>
-            <td>{{course.number_students}}</td>
-             <td>
-                <button class="btn btn-sm btn-warning edit-course-btn" data-course-id="{{ course.id }}" id="edit-course-btn">Editar</button>
-                <button class="btn btn-sm btn-danger delete-course-btn" data-course-id="{{ course.id }}" id="delete-course-btn">Eliminar</button>
-        </td>
-          </tr>
-        {% endfor %}
-        </tbody>
-
-      </table>
-    </div>
-<div class="col-sm-2">
-  <h4 class="success ">Estudiantes Inscritos</h4>
-  <ul id="student-list">
-  </ul>
-</div>
-  </div>
-<div class="row">
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">Cursos más populares</h5>
-      {% for course in top_courses %}
-      <h6 class="card-subtitle mb-2 text-muted">{{ course.name }}</h6>
-      <p class="card-text">{{ course.number_students }} estudiantes inscritos</p>
-      {% endfor %}
-    </div>
-  </div>
-</div>
+   <h1 class="alert alert-success text-center">Tablero Cursos</h1>
+   <div class="row">
+      <div class="col-sm-2">
+         <form id="create-course-form"  method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-success" value="Crear" >
+         </form>
+      </div>
+      <div class="col-sm-7">
+         <table id='course-table' class="table table-hover">
+            <thead>
+               <th>Nombre de Curso</th>
+               <th>Horario</th>
+               <th>Fecha de Inicio</th>
+               <th>Fecha de Finalizacion</th>
+               <th>Estudiantes Incritos</th>
+            </thead>
+            <tbody>
+               {% for course in courses%}
+               <tr data-course-id="{{ course.id }}">
+                  <td>{{course.name}}</td>
+                  <td>{{course.schedule}}</td>
+                  <td>{{course.start_date}}</td>
+                  <td>{{course.end_date}}</td>
+                  <td>{{course.number_students}}</td>
+                  <td>
+                     <button class="btn btn-sm btn-warning edit-course-btn" data-course-id="{{ course.id }}" id="edit-course-btn">Editar</button>
+                     <button class="btn btn-sm btn-danger delete-course-btn" data-course-id="{{ course.id }}" id="delete-course-btn">Eliminar</button>
+                  </td>
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+      <div class="col-sm-2">
+         <h4 class="success ">Estudiantes Inscritos</h4>
+         <ul id="student-list">
+         </ul>
+      </div>
+   </div>
+   <div class="row">
+      <div class="card" style="width: 18rem;">
+         <div class="card-body">
+            <h5 class="card-title">Cursos más populares</h5>
+            {% for course in top_courses %}
+            <h6 class="card-subtitle mb-2 text-muted">{{ course.name }}</h6>
+            <p class="card-text">{{ course.number_students }} estudiantes inscritos</p>
+            {% endfor %}
+         </div>
+      </div>
+   </div>
 </div>
 <div class="modal fade" id="edit-course-modal" tabindex="-1" role="dialog" aria-labelledby="edit-course-modal-label" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="edit-course-modal-label">Editar Curso</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="edit-course-modal-label">Editar Curso</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form id="edit-course-form">
+               {% csrf_token %}
+               {{ form.as_p }}
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" id="update-course-btn" class="btn btn-primary">Guardar</button>
+         </div>
       </div>
-      <div class="modal-body">
-        <form id="edit-course-form">
-          {% csrf_token %}
-          {{ form.as_p }}
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" id="update-course-btn" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
+   </div>
 </div>
-
+<script src="{% static 'js/get-cookies' %}"></script>
+<script src="{% static 'js/courses/create-course.js' %}"></script>
+<script src="{% static 'js/courses/delete-course.js' %}"></script>
+<script src="{% static 'js/courses/update-course.js' %}"></script>
+<script src="{% static 'js/courses/show-students.js' %}"></script>
 <script src="{% static 'js/index.js' %}"></script>
-
 {% endblock %}
