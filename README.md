@@ -70,6 +70,6 @@ If any of these checks fail, the commit cannot be done and it's necessary to fix
 ### Testing
 
 ### Documentation
-
+Show how use appliction User in file Demo.mov in this project
 
 ### Releasing new version
