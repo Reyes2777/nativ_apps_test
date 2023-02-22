@@ -18,6 +18,12 @@ $(document).ready(function() {
                         '<td>' + data.schedule + '</td>' +
                         '<td>' + data.start_date + '</td>' +
                         '<td>' + data.end_date + '</td>' +
+                        '<td>' + data.number_students + '</td>' +
+                        '<td>' +
+                            '<button class="btn btn-sm btn-warning edit-course-btn" data-course-id="' + data.id + '">Editar</button>' +
+                            '<button class="btn btn-sm btn-danger delete-course-btn" data-course-id="' + data.id + '">Eliminar</button>' +
+                        '</td>' +
+
                     '</tr>'
                 );
             },
@@ -28,7 +34,7 @@ $(document).ready(function() {
     });
 
 
-  $('table').on('click', 'input.btn-danger', function(event) {
+  $('table').on('click', 'button.btn-danger', function(event) {
     event.preventDefault();
     const btn = $(this);
     const url = `/courses/delete/${btn.data('course-id')}/`;
@@ -54,7 +60,7 @@ $(document).ready(function() {
     }
   });
 
-  $("#edit-course-btn").on('click', function() {
+  $(".edit-course-btn").on('click', function() {
   var courseId = $(this).data('course-id');
   $('#edit-course-modal').modal('show');
   $("#edit-course-form").attr('data-course-id', courseId)

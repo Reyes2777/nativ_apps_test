@@ -34,6 +34,7 @@ def create_course(request):
                 'schedule': course.schedule,
                 'start_date': course.start_date,
                 'end_date': course.end_date,
+                'number_students': course.number_students
             }
             return JsonResponse(data)
         else:
