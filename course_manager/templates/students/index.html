@@ -38,7 +38,7 @@
              <td>
                 <button class="btn btn-sm btn-warning edit-student-btn" data-student-id="{{ student.id }}" id="edit-student-btn">Editar</button>
                 <button class="btn btn-sm btn-danger delete-student-btn" data-student-id="{{ student.id }}" id="delete-student-btn">Eliminar</button>
-                <button class="btn btn-sm btn-info subscribe-btn" data-student-id="{{ student.id }}" data-course-id="{{ course.id }}">Suscribirse</button>
+                <button class="btn btn-sm btn-info subscribe-btn" data-student-id="{{ student.id }}" data-course-id="{{ course.id }}" id="subscribe-btn">Suscribirse</button>
         </td>
           </tr>
         {% endfor %}
@@ -72,6 +72,37 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="edit-courses-modal" tabindex="-1" role="dialog" aria-labelledby="edit-courses-modal-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="edit-courses-modal-label">Editar Cursos del Estudiante</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-courses-form">
+          {% csrf_token %}
+          <input type="hidden" id="student-id" name="student-id" value="">
+          <label for="courses">Cursos:</label>
+          <select id="courses" name="courses" class="custom-select" multiple>
+            {% for course in courses %}
+              <option value="{{ course.id }}">{{ course.name }}</option>
+            {% endfor %}
+          </select>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" id="update-courses-btn" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script src="{% static 'js/index_students.js' %}"></script>
 

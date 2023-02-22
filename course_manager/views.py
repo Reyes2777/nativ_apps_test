@@ -1,8 +1,12 @@
+from datetime import timedelta
+
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.utils import timezone
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 
+from django.db import models
 from course_manager.forms import CourseForm, StudentForm
 from course_manager.models import Course, Student
 
@@ -10,7 +14,13 @@ from course_manager.models import Course, Student
 def home(_request):
     form = CourseForm
     courses = Course.objects.all()
-    context = {'form': form, 'courses': courses}
+    six_months_ago = timezone.now() - timedelta(days=180)
+
+    top_courses = Course.objects.filter(
+        enrolled_students__courses__isnull=False,
+        modified__gte=six_months_ago).annotate(num_students=models.Count('enrolled_students')).order_by(
+        '-num_students')[:3]
+    context = {'form': form, 'courses': courses, 'top_courses': top_courses}
     return render(_request, 'courses/index.html', context)
 
 
@@ -57,7 +67,8 @@ def delete_course(request, pk):
 def students(_request):
     form = StudentForm
     students = Student.objects.all()
-    context = {'form': form, 'students': students}
+    courses = Course.objects.all()
+    context = {'form': form, 'students': students, 'courses': courses}
     return render(_request, 'students/index.html', context)
 
 

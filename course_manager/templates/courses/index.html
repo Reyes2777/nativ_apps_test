@@ -15,10 +15,11 @@
     <div class="col-sm-7">
       <table id='course-table' class="table table-hover">
         <thead>
-          <th>Name</th>
-          <th>Schedule</th>
-          <th>Start Date</th>
-          <th>End Date</th>
+          <th>Nombre de Curso</th>
+          <th>Horario</th>
+          <th>Fecha de Inicio</th>
+          <th>Fecha de Finalizacion</th>
+          <th>Estudiantes Incritos</th>
         </thead>
         <tbody>
         {% for course in courses%}
@@ -27,6 +28,7 @@
             <td>{{course.schedule}}</td>
             <td>{{course.start_date}}</td>
             <td>{{course.end_date}}</td>
+            <td>{{course.number_students}}</td>
              <td>
                 <button class="btn btn-warning edit-course-btn" data-course-id="{{ course.id }}" id="edit-course-btn">Editar</button>
                 <button class="btn btn-danger delete-course-btn" data-course-id="{{ course.id }}" id="delete-course-btn">Eliminar</button>
@@ -43,6 +45,17 @@
   </ul>
 </div>
   </div>
+<div class="row">
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Cursos más populares</h5>
+      {% for course in top_courses %}
+      <h6 class="card-subtitle mb-2 text-muted">{{ course.name }}</h6>
+      <p class="card-text">{{ course.number_students }} estudiantes inscritos</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 </div>
 <div class="modal fade" id="edit-course-modal" tabindex="-1" role="dialog" aria-labelledby="edit-course-modal-label" aria-hidden="true">
   <div class="modal-dialog" role="document">

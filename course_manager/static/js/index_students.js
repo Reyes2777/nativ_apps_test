@@ -94,6 +94,27 @@ $(document).ready(function() {
 
   });
 
+  $(document).ready(function() {
+
+  // Abrir el modal cuando se hace clic en el botón "Suscribir"
+  $('.subscribe-btn').click(function() {
+    $('#edit-courses-modal').modal('show');
+  });
+
+  // Manejar la suscripción del estudiante
+  $('#update-courses-btn').click(function() {
+    var studentId = $('#student-id').val();
+    var selectedCourses = $('#courses').val();
+
+    // Enviar una solicitud al servidor para suscribir al estudiante a los cursos seleccionados
+    // ...
+
+    // Cerrar el modal después de que se complete la suscripción
+    $('#edit-courses-modal').modal('hide');
+  });
+
+});
+
 });
 
 
