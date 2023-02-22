@@ -1,7 +1,7 @@
 from django.urls import path
 
 from course_manager.views import home, create_course, delete_course, update_course, create_student, students, \
-    delete_student, update_student
+    delete_student, update_student, list_students
 
 urlpatterns = [
     path('', home, name='home'),
@@ -11,5 +11,7 @@ urlpatterns = [
     path('students', students, name='students'),
     path('create-student', create_student, name='create_student'),
     path('delete-student/<int:pk>/', delete_student, name='delete_student'),
-    path('update-student/<int:pk>/', update_student, name='update_student')
+    path('update-student/<int:pk>/', update_student, name='update_student'),
+    path('list-students/<int:course_id>/', list_students, name='list_students'),
+
 ]

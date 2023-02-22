@@ -16,7 +16,7 @@ class Student(models.Model):
     last_name = models.CharField(max_length=50)
     age = models.IntegerField()
     email = models.EmailField()
-    courses = models.ManyToManyField('Course')
+    courses = models.ManyToManyField('Course', related_name='enrolled_students', blank=True)
 
     def __str__(self):
         return f'{self.name} {self.last_name}'

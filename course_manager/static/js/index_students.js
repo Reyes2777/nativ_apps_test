@@ -20,10 +20,11 @@ $(document).ready(function() {
                         '<td>' + data.last_name + '</td>' +
                         '<td>' + data.age + '</td>' +
                         '<td>' + data.email + '</td>' +
-                        '<td>' + data.courses + '</td>' +
+                        '<td>' + 'Sin Asignar' + '</td>' +
                         '<td>' +
-                            '<button class="btn btn-warning edit-student-btn" data-student-id="' + data.id + '">Editar</button>' +
-                            '<button class="btn btn-danger delete-student-btn" data-student-id="' + data.id + '">Eliminar</button>' +
+                            '<button class="btn btn-sm btn-warning edit-student-btn" data-student-id="' + data.id + '">Editar</button>' +
+                            '<button class="btn btn-sm btn-danger delete-student-btn" data-student-id="' + data.id + '">Eliminar</button>' +
+                            '<button class="btn btn-sm btn-info subscribe-btn" data-student-id="' + data.id + '">Suscribirse</button>' +
                         '</td>' +
                     '</tr>'
                 );

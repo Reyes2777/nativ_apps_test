@@ -99,3 +99,16 @@ def delete_student(request, pk):
     student.delete()
     data = {'success': True}
     return JsonResponse(data)
+
+
+def list_students(request, course_id):
+    course = Course.objects.get(id=course_id)
+    students = course.enrolled_students.all()
+    data = {
+        'students': [{
+            'id': s.id,
+            'name': s.name + ' ' + s.last_name,
+            'email': s.email,
+        } for s in students]
+    }
+    return JsonResponse(data)
