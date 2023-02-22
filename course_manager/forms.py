@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import TextInput, DateInput
-from course_manager.models import Course
+from course_manager.models import Course, Student
 
 
 class CourseForm(forms.ModelForm):
@@ -23,3 +23,15 @@ class CourseForm(forms.ModelForm):
             raise forms.ValidationError('La fecha de inicio no puede ser mayor que la fecha de finalización')
 
         return cleaned_data
+
+
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ['name', 'last_name', 'age', 'email']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        }
