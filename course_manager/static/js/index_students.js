@@ -96,22 +96,50 @@ $(document).ready(function() {
 
   $(document).ready(function() {
 
-  // Abrir el modal cuando se hace clic en el botón "Suscribir"
+  $(document).ready(function() {
+
   $('.subscribe-btn').click(function() {
+    var studentId = $(this).data('student-id');
+    var courseId = $(this).data('course-id');
+
     $('#edit-courses-modal').modal('show');
+    $('#edit-courses-modal').find('#student-id').val(studentId);
+    $('#edit-courses-modal').find('#course-id').val(courseId);
   });
 
   // Manejar la suscripción del estudiante
   $('#update-courses-btn').click(function() {
-    var studentId = $('#student-id').val();
-    var selectedCourses = $('#courses').val();
+    var studentId = $('#edit-courses-modal').find('#student-id').val();
+    var selectedCourses = $('#edit-courses-modal').find('#courses').val();
 
     // Enviar una solicitud al servidor para suscribir al estudiante a los cursos seleccionados
-    // ...
-
-    // Cerrar el modal después de que se complete la suscripción
-    $('#edit-courses-modal').modal('hide');
+    $.ajax({
+      url: './subscribe/',
+      type: 'POST',
+      data: {
+        'student_id': studentId,
+        'courses': selectedCourses
+      },
+      beforeSend: function(xhr, settings) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+      },
+      success: function(response) {
+        if (response.success) {
+          alert('El estudiante se ha suscrito correctamente a los cursos.');
+          $('#edit-courses-modal').modal('hide');
+var row = $("#student-table").find("[data-student-id='" + studentId + "']");
+    row.find("td:eq(4)").html(data.courses);
+        } else {
+          alert('No se ha podido suscribir al estudiante. Verifique los errores.');
+        }
+      },
+      error: function() {
+        alert('No se ha podido suscribir al estudiante. Intente de nuevo.');
+      }
+    });
   });
+});
+
 
 });
 

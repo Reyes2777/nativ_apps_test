@@ -124,3 +124,18 @@ def list_students(request, course_id):
         } for s in students]
     }
     return JsonResponse(data)
+
+
+@ensure_csrf_cookie
+@require_POST
+def subscribe_student(request):
+    if request.method == 'POST':
+        student_id = request.POST.get('student_id')
+        course_ids = request.POST.getlist('courses')
+        student = get_object_or_404(Student, pk=int(student_id))
+        courses = Course.objects.filter(pk__in=course_ids)
+
+        for course in courses:
+            student.courses.add(course)
+
+        return JsonResponse({'success': True})

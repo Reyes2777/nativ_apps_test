@@ -87,7 +87,7 @@
           {% csrf_token %}
           <input type="hidden" id="student-id" name="student-id" value="">
           <label for="courses">Cursos:</label>
-          <select id="courses" name="courses" class="custom-select" multiple>
+          <select id="courses" name="courses" class="custom-select">
             {% for course in courses %}
               <option value="{{ course.id }}">{{ course.name }}</option>
             {% endfor %}
